@@ -1,0 +1,43 @@
+apiVersion: meta.pkg.upbound.io/v1alpha1
+kind: Controller
+metadata:
+  annotations:
+    friendly-name.meta.crossplane.io: Kyverno Policy Reporter
+    meta.crossplane.io/description: |
+      Policy Reporter is a monitoring and observability tool for the PolicyReport CRD standard.
+    meta.crossplane.io/license: Apache-2.0
+    meta.crossplane.io/maintainer: Upbound Maintainers <info@upbound.io>
+    meta.crossplane.io/readme: |
+      Policy Reporter is a monitoring and observability tool for the PolicyReport CRD standard.
+    meta.crossplane.io/source: https://github.com/kyverno/policy-reporter
+  name: policy-reporter
+spec:
+  packagingType: Helm
+  helm:
+    releaseName: policy-reporter
+    releaseNamespace: policy-reporter
+    values:
+      image:
+        registry: xpkg.upbound.io
+        repository: upbound/policy-reporter
+      metrics:
+        enabled: true
+      rest:
+        enabled: true
+      target:
+        crd: true
+      plugin:
+        kyverno:
+          enabled: true
+          image:
+            registry: xpkg.upbound.io
+            repository: upbound/policy-reporter-kyverno-plugin
+          blockReports:
+            enabled: true
+        trivy:
+          enabled: false
+      ui:
+        enabled: false
+        image:
+          registry: xpkg.upbound.io
+          repository: upbound/policy-reporter-ui

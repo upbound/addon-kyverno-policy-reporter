@@ -1,0 +1,16 @@
+apiVersion: meta.dev.upbound.io/v1alpha1
+kind: Project
+metadata:
+  name: addon-kyverno-policy-reporter
+spec:
+  apiDependencies:
+  - k8s:
+      version: v1.33.0
+    type: k8s
+  description: addon-kyverno-policy-reporter
+  license: Apache-2.0
+  maintainer: Upbound Maintainers <info@upbound.io>
+  readme: |
+    Test for addon-kyverno-policy-reporter
+  repository: xpkg.upbound.io/upbound/addon-kyverno-policy-reporter_test
+  source: github.com/upbound/addon-kyverno-policy-reporter

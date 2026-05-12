@@ -1,0 +1,6 @@
+apiVersion: pkg.upbound.io/v1alpha1
+kind: Controller
+metadata:
+  name: addon-kyverno-policy-reporter
+spec:
+  package: xpkg.upbound.io/upbound/addon-kyverno-policy-reporter:${VERSION}
