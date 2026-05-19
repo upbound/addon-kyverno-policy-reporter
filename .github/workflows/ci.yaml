@@ -102,7 +102,14 @@ jobs:
           mkdir helm
           mv $CHART_NAME-$CHART_VERSION.tgz helm/chart.tgz
           mkdir crds
-          helm template $RELEASE_NAME helm/chart.tgz -n $RELEASE_NAME --include-crds --kube-version=1.25.0 | \
+          # Extract helm values from the meta package to ensure conditional CRDs are rendered
+          HELM_VALUES=$(yq e '.spec.helm.values' crossplane.yaml)
+          VALUES_ARGS=""
+          if [ "$HELM_VALUES" != "null" ]; then
+            echo "$HELM_VALUES" > /tmp/meta-values.yaml
+            VALUES_ARGS="-f /tmp/meta-values.yaml"
+          fi
+          helm template $RELEASE_NAME helm/chart.tgz -n $RELEASE_NAME --include-crds --kube-version=1.25.0 $VALUES_ARGS | \
             yq e 'select(.kind == "CustomResourceDefinition")' - | \
             yq -s '("crds/" + .metadata.name + ".yaml")' -
 
