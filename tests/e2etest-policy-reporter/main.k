@@ -31,6 +31,16 @@ _items = [
                     apiVersion: "pkg.upbound.io/v1beta1"
                     kind: "AddOn"
                     metadata: {
+                        name: "pkg-addon-kyverno"
+                    }
+                    spec: {
+                        package: "xpkg.upbound.io/upbound/addon-kyverno:3.7.0"
+                    }
+                }
+                {
+                    apiVersion: "pkg.upbound.io/v1beta1"
+                    kind: "AddOn"
+                    metadata: {
                         name: "pkg-addon-kyverno-policy-reporter"
                     }
                     spec: {
