@@ -75,8 +75,6 @@ _items = [
                         }]
                     }
                 }
-            ]
-            manifests: [
                 {
                     apiVersion: "pkg.upbound.io/v1beta1"
                     kind: "AddOnRuntimeConfig"
@@ -95,6 +93,8 @@ _items = [
                         }
                     }
                 }
+            ]
+            manifests: [
                 {
                     apiVersion: "pkg.upbound.io/v1beta1"
                     kind: "AddOn"
