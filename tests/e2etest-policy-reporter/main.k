@@ -25,6 +25,74 @@ _items = [
                         }
                     ]
                 }
+                {
+                    apiVersion: "apiextensions.k8s.io/v1"
+                    kind: "CustomResourceDefinition"
+                    metadata.name: "policyreports.wgpolicyk8s.io"
+                    spec: {
+                        group: "wgpolicyk8s.io"
+                        names: {
+                            kind: "PolicyReport"
+                            listKind: "PolicyReportList"
+                            plural: "policyreports"
+                            singular: "policyreport"
+                            shortNames: ["polr"]
+                        }
+                        scope: "Namespaced"
+                        versions: [{
+                            name: "v1alpha2"
+                            served: True
+                            storage: True
+                            schema.openAPIV3Schema: {
+                                type: "object"
+                                "x-kubernetes-preserve-unknown-fields": True
+                            }
+                        }]
+                    }
+                }
+                {
+                    apiVersion: "apiextensions.k8s.io/v1"
+                    kind: "CustomResourceDefinition"
+                    metadata.name: "clusterpolicyreports.wgpolicyk8s.io"
+                    spec: {
+                        group: "wgpolicyk8s.io"
+                        names: {
+                            kind: "ClusterPolicyReport"
+                            listKind: "ClusterPolicyReportList"
+                            plural: "clusterpolicyreports"
+                            singular: "clusterpolicyreport"
+                            shortNames: ["cpolr"]
+                        }
+                        scope: "Cluster"
+                        versions: [{
+                            name: "v1alpha2"
+                            served: True
+                            storage: True
+                            schema.openAPIV3Schema: {
+                                type: "object"
+                                "x-kubernetes-preserve-unknown-fields": True
+                            }
+                        }]
+                    }
+                }
+                {
+                    apiVersion: "pkg.upbound.io/v1beta1"
+                    kind: "AddOnRuntimeConfig"
+                    metadata: {
+                        name: "policy-reporter-e2e"
+                    }
+                    spec: {
+                        helm: {
+                            values: {
+                                plugin: {
+                                    kyverno: {
+                                        enabled: False
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             ]
             manifests: [
                 {
@@ -35,6 +103,11 @@ _items = [
                     }
                     spec: {
                         package: "xpkg.upbound.io/upbound/addon-kyverno-policy-reporter:"+ version
+                        runtimeConfigRef: {
+                            apiVersion: "pkg.upbound.io/v1beta1"
+                            kind: "AddOnRuntimeConfig"
+                            name: "policy-reporter-e2e"
+                        }
                     }
                 }
             ]
