@@ -13,24 +13,29 @@ Policy Reporter is a monitoring and observability tool for the [PolicyReport CRD
 
 ### As AddOn (UXP v2)
 
+`AddOn` requires UXP v2.
+
 ```yaml
 apiVersion: pkg.upbound.io/v1beta1
 kind: AddOn
 metadata:
   name: policy-reporter
 spec:
-  package: xpkg.upbound.io/upbound/addon-kyverno-policy-reporter:3.7.4
+  package: xpkg.upbound.io/upbound/addon-kyverno-policy-reporter:3.10.0
 ```
 
 ### As Controller (Spaces)
+
+Spaces control planes use the `Controller` package, which is published under a
+separate `controller-` repository name:
 
 ```yaml
 apiVersion: pkg.upbound.io/v1alpha1
 kind: Controller
 metadata:
-  name: addon-kyverno-policy-reporter
+  name: controller-kyverno-policy-reporter
 spec:
-  package: xpkg.upbound.io/upbound/addon-kyverno-policy-reporter:3.7.4
+  package: xpkg.upbound.io/upbound/controller-kyverno-policy-reporter:3.10.0
 ```
 
 ## Configuration
@@ -55,6 +60,6 @@ spec:
 
 ## Upstream
 
-- Chart: `policy-reporter/policy-reporter` v3.7.4
+- Chart: `policy-reporter/policy-reporter` v3.10.0
 - Source: https://github.com/kyverno/policy-reporter
 - License: MIT
