@@ -1,4 +1,4 @@
 CHART_NAME=policy-reporter
-CHART_VERSION=3.10.0
+CHART_VERSION=3.11.2
 RELEASE_NAME=policy-reporter
 REPO_URL=https://kyverno.github.io/policy-reporter
