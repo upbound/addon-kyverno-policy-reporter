@@ -28,8 +28,9 @@ ghcr.io/kyverno/policy-reporter-ui xpkg.upbound.io/upbound/policy-reporter-ui
 ghcr.io/kyverno/policy-reporter/kyverno-plugin xpkg.upbound.io/upbound/policy-reporter-kyverno-plugin
 "
 
-# Get image list from Helm chart
-images=$(helm images get "$CHART" --version="$CHART_VERSION" --skip-tests | sort | uniq)
+# Get image list from Helm chart, enabling components that are off by default but used by the addon
+images=$(helm images get "$CHART" --version="$CHART_VERSION" --skip-tests \
+  --set plugin.kyverno.enabled=true --set ui.enabled=true | sort | uniq)
 
 echo "$images" | while read -r image; do
   [ -z "$image" ] && continue
